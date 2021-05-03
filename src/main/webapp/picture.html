@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <LINK href="img/favicon.svg" type="image/x-icon" rel="shortcut icon">
+    <title>今日校园 生成图片</title>
+</head>
+<style>
+    body {
+        /*overflow: hidden;*/
+        background: url(https://pic.downk.cc/item/5fd23aa83ffa7d37b3bcbcd8.jpg) top left;
+        background-size: 100%;
+    }
+
+    .divForm {
+        position: absolute; /*绝对定位*/
+        text-align: center; /*(让div中的内容居中)*/
+        top: 20%;
+        left: 15%;
+    }
+
+    div {
+        border: #ff1010;
+    }
+
+    .inputText {
+        width: 400px;
+        height: 50px;
+        line-height: 30px;
+        font-size: 30px;
+        padding-left: 30px;
+        border-radius: 50px;
+        background-color: gainsboro;
+        border: none;
+    }
+
+    .inputText:focus {
+        outline: none;
+        background-color: lightblue;
+    }
+
+    form {
+        text-align: center;
+        /*background:olivedrab;*/
+    }
+
+    #submit {
+        width: 200px;
+        height: 100px;
+        background: #504cff;
+    }
+
+    td {
+        color: #ff1010;
+        padding: 10px;
+    }
+
+    .btn {
+        width: 150px;
+        height: 50px;
+        border: none;
+        background-color: green;
+        line-height: 50px;
+        font-size: 30px;
+        text-align: center;
+        color: white;
+        border-radius: 50px;
+    }
+
+    .btn-primary {
+        background-color: blue;
+    }
+</style>
+<body>
+<div class="divForm">
+    <form action="/getPicture" method="get">
+        <fieldset>
+            <table>
+                <tr>
+                    <td>目的地:</td>
+                    <td>
+                        <input type="text" class="inputText" name="destination" placeholder="请输入您的目的地"
+                               id="destination"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>请假人:</td>
+                    <td>
+                        <input type="text" class="inputText" name="ownName" placeholder="张三疯" id="ownName"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>请假原因:</td>
+                    <td>
+                        <input type="text" class="inputText" name="reason" placeholder="肚子疼？ 胃疼？" id="reason"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>请假时长：</td>
+                    <td>
+                        <input type="text" name="duration" class="inputText" placeholder="0天05小时"
+                               id="duration"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>开始时间:</td>
+                    <td>
+                        <input type="datetime-local" class="inputText" name="beginTime" id="beginTime"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>结束时间:</td>
+                    <td>
+                        <input type="datetime-local" class="inputText" name="endTime" id="endTime"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>发起申请时间：</td>
+                    <td>
+                        <input type="datetime-local" class="inputText" name="initiateAnApplication"
+                               id="initiateAnApplication"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>辅导员通过申请时间：</td>
+                    <td>
+                        <input type="datetime-local" class="inputText" name="receiveApplication"
+                               id="receiveApplication"/>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>紧急联系人:</td>
+                    <td>
+                        <input type="text" class="inputText" name="phoneNumber" placeholder="您的手机号码" id="phoneNumber"/>
+                    </td>
+                    <td>
+                        <input type="button" onclick="getRandomNum()" value="随机生成">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>发起签到位置:</td>
+                    <td>
+                        <input type="text" class="inputText" name="position" id="position" value="河南省许昌市魏都区昌达路"
+                               placeholder="河南省许昌市魏都区昌达路"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>辅导员名:</td>
+                    <td>
+                        <input type="text" class="inputText" name="counselorSName" value="杨咏雪" placeholder="杨咏雪"
+                               id="counselorSName"/>
+                    </td>
+                </tr>
+
+
+                <tr>
+
+                    <td colspan="2">
+                        <input id="submit" type="submit" class="btn btn-primary" name="提交">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>
+</body>
+<script>
+
+    window.onload = function getRandomNum() {
+        let num = 1;
+        for (let i = 0; i < 10; i++) {
+            let test = Math.floor(Math.random() * 10);
+            num += test.toString();
+        }
+        document.getElementById(`phoneNumber`).value = num;
+
+    }
+
+    function getRandomNum() {
+        let num = 1;
+        for (let i = 0; i < 10; i++) {
+            let test = Math.floor(Math.random() * 10);
+            num += test.toString();
+        }
+        document.getElementById(`phoneNumber`).value = num;
+
+    }
+</script>
+</html>
