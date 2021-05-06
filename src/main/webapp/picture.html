@@ -5,11 +5,53 @@
     <LINK href="img/favicon.svg" type="image/x-icon" rel="shortcut icon">
     <title>今日校园 生成图片</title>
 </head>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/3.0.1/layer.js" type="text/javascript" charset="utf-8"></script>
 <style>
+    .noneButton {
+        opacity: 0.5;
+        cursor: default;
+        pointer-events: none;
+        /*content: '123';*/
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        margin-right: 0.5em;
+        color: red;
+        border: 1px solid red;
+        border-radius: 50%;
+        vertical-align: -10%;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 30%, 0% 30%);
+        animation: rotate 1s linear infinite;
+    }
+
+
+    @keyframes rotate {
+        from {
+            transform: rotatez(0deg);
+        }
+
+        to {
+            transform: rotatez(360deg);
+        }
+    }
+
     body {
-        /*overflow: hidden;*/
-        background: url(https://pic.downk.cc/item/5fd23aa83ffa7d37b3bcbcd8.jpg) top left;
-        background-size: 100%;
+        min-height: 120vh;
+        background-image: linear-gradient(120deg, #7ed6df, #4834d4);
+    }
+
+    .info-form {
+
+        width: 740px;
+        background: #f1f1f1;
+        padding: 30px 40px;
+        height: auto;
+        border-radius: 10px;
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        transform: translate(-50%, -50%);
     }
 
     .divForm {
@@ -51,8 +93,9 @@
     }
 
     td {
-        color: #ff1010;
+        /*color: #ff1010;*/
         padding: 10px;
+        font-size: 20px;
     }
 
     .btn {
@@ -70,103 +113,171 @@
     .btn-primary {
         background-color: blue;
     }
+
+    #msg {
+        color: red;
+    }
+    h1{
+        text-align: center;
+    }
 </style>
 <body>
-<div class="divForm">
-    <form action="/getPicture" method="get">
-        <fieldset>
-            <table>
-                <tr>
-                    <td>目的地:</td>
-                    <td>
-                        <input type="text" class="inputText" name="destination" placeholder="请输入您的目的地"
-                               id="destination"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>请假人:</td>
-                    <td>
-                        <input type="text" class="inputText" name="ownName" placeholder="张三疯" id="ownName"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>请假原因:</td>
-                    <td>
-                        <input type="text" class="inputText" name="reason" placeholder="肚子疼？ 胃疼？" id="reason"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>请假时长：</td>
-                    <td>
-                        <input type="text" name="duration" class="inputText" placeholder="0天05小时"
-                               id="duration"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>开始时间:</td>
-                    <td>
-                        <input type="datetime-local" class="inputText" name="beginTime" id="beginTime"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>结束时间:</td>
-                    <td>
-                        <input type="datetime-local" class="inputText" name="endTime" id="endTime"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>发起申请时间：</td>
-                    <td>
-                        <input type="datetime-local" class="inputText" name="initiateAnApplication"
-                               id="initiateAnApplication"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>辅导员通过申请时间：</td>
-                    <td>
-                        <input type="datetime-local" class="inputText" name="receiveApplication"
-                               id="receiveApplication"/>
-                    </td>
-                </tr>
+<div class="info-form">
+    <h1>请假-详细信息</h1>
+    <form id="formAddHandlingFee">
+
+        <table>
+            <tr>
+                <td>目的地:</td>
+                <td>
+                    <input type="text" class="inputText" name="destination" placeholder="请输入您的目的地"
+                           id="destination"/>
+                </td>
+            </tr>
+            <tr>
+                <td>请假人:</td>
+                <td>
+                    <input type="text" class="inputText" name="ownName" placeholder="张三疯" id="ownName"/>
+                </td>
+            </tr>
+            <tr>
+                <td>请假原因:</td>
+                <td>
+                    <input type="text" class="inputText" name="reason" placeholder="肚子疼？ 胃疼？" id="reason"/>
+                </td>
+            </tr>
+            <tr>
+                <td>请假时长：</td>
+                <td>
+                    <input type="text" name="duration" class="inputText" placeholder="0天05小时"
+                           id="duration"/>
+                </td>
+            </tr>
+            <tr>
+                <td>开始时间:</td>
+                <td>
+                    <input type="datetime-local" class="inputText" name="beginTime" id="beginTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>结束时间:</td>
+                <td>
+                    <input type="datetime-local" class="inputText" name="endTime" id="endTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>发起申请时间：</td>
+                <td>
+                    <input type="datetime-local" class="inputText" name="initiateAnApplication"
+                           id="initiateAnApplication"/>
+                </td>
+            </tr>
+            <tr>
+                <td>辅导员通过申请时间：</td>
+                <td>
+                    <input type="datetime-local" class="inputText" name="receiveApplication"
+                           id="receiveApplication"/>
+                </td>
+            </tr>
 
 
-                <tr>
-                    <td>紧急联系人:</td>
-                    <td>
-                        <input type="text" class="inputText" name="phoneNumber" placeholder="您的手机号码" id="phoneNumber"/>
-                    </td>
-                    <td>
-                        <input type="button" onclick="getRandomNum()" value="随机生成">
-                    </td>
-                </tr>
+            <tr>
+                <td>紧急联系人:</td>
+                <td>
+                    <input type="text" class="inputText" name="phoneNumber" placeholder="您的手机号码" id="phoneNumber"/>
+                </td>
+                <!--                    <td>-->
+                <!--                        <input type="button" onclick="getRandomNum()" value="随机生成">-->
+                <!--                    </td>-->
+            </tr>
 
-                <tr>
-                    <td>发起签到位置:</td>
-                    <td>
-                        <input type="text" class="inputText" name="position" id="position" value="河南省许昌市魏都区昌达路"
-                               placeholder="河南省许昌市魏都区昌达路"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>辅导员名:</td>
-                    <td>
-                        <input type="text" class="inputText" name="counselorSName" value="杨咏雪" placeholder="杨咏雪"
-                               id="counselorSName"/>
-                    </td>
-                </tr>
+            <tr>
+                <td>发起签到位置:</td>
+                <td>
+                    <input type="text" class="inputText" name="position" id="position" value="河南省许昌市魏都区昌达路"
+                           placeholder="河南省许昌市魏都区昌达路"/>
+                </td>
+            </tr>
+            <tr>
+                <td>辅导员名:</td>
+                <td>
+                    <input type="text" class="inputText" name="counselorSName" value="杨咏雪" placeholder="杨咏雪"
+                           id="counselorSName"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="msg"></div>
+                </td>
+            </tr>
 
-
-                <tr>
-
-                    <td colspan="2">
-                        <input id="submit" type="submit" class="btn btn-primary" name="提交">
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
+        </table>
     </form>
+    <div style="text-align:center;vertical-align:middle;">
+        <input id="submit" type="button" class="btn btn-primary" value="提交">
+
+    </div>
 </div>
+
+
 </body>
+
+<script>
+
+    $(function () {
+
+        $("#submit").click(function () {
+            $('#msg').html(" ")
+            layer.msg('加载中(请耐心等待)..', {
+                anim: 1, //动画效果
+                icon: 16    ,
+                shade: 0.5, //遮罩层透明度
+                shadeClose: false, //点击遮罩层关闭
+                time: 0, //不自动关闭
+            });
+
+
+            if ($("[name='destination']").val() !="" &&
+                $("[name='ownName']").val() !="" &&
+                $("[name='reason']").val() !="" &&
+                $("[name='duration']").val() !="" &&
+                $("[name='beginTime']").val() !="" &&
+                $("[name='endTime']").val() !="" &&
+                $("[name='initiateAnApplication']").val() !="" &&
+                $("[name='receiveApplication']").val() !="" &&
+                $("[name='phoneNumber']").val() !="" &&
+                $("[name='position']").val() !="" &&
+                $("[name='counselorSName']").val() !=""){
+                $.ajax({
+                    url: '/getPicture',
+                    method: 'POST',
+                    dataType: 'json',
+
+                    data: $('#formAddHandlingFee').serialize(),
+                    // statusCode:{
+                    //   404:$('#msg').html(response.data);
+                    // },
+                    success: function (response) {
+                        if (response.msg = "success") {
+                            layer.msg(response.msg);
+                            window.location.href = "/showImage.jsp"
+                        } else {
+
+                            layer.msg(response.data);
+                        }
+
+                    },
+                    error: function (data, status) {
+                        layer.msg('未知错误，请联系管理员');
+                    }
+                })
+            }else {
+                layer.msg("参数不全，请检查是否含有未填写选项");
+            }
+
+        });
+    })
+</script>
 <script>
 
     window.onload = function getRandomNum() {
@@ -179,14 +290,5 @@
 
     }
 
-    function getRandomNum() {
-        let num = 1;
-        for (let i = 0; i < 10; i++) {
-            let test = Math.floor(Math.random() * 10);
-            num += test.toString();
-        }
-        document.getElementById(`phoneNumber`).value = num;
-
-    }
 </script>
 </html>

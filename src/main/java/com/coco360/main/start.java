@@ -59,7 +59,7 @@ public class start {
 
     public static String getDate() {
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("[ yyyy-MM-dd HH:mm:ss ]");
         String format = sdf.format(date);
         return format;
     }
@@ -104,22 +104,22 @@ public class start {
 
                 if (qd.qd_Bool == true) {
                     qd.qd_Bool = false;
-                    System.out.println('[' + getDate() + ']' + "签到任务已关闭");
+                    System.out.println( getDate() +   "签到任务已关闭");
 //                    关闭方法
                 } else {
                     qd.qd_Bool = true;
-                    System.out.println('[' + getDate() + ']' + "签到任务已开启");
+                    System.out.println( getDate() + "签到任务已开启");
                     qd_Thread.interrupt();
                 }
             }
             if (i == 2) {
                 if (ccr.checkCourseware_Bool == true) {
                     ccr.checkCourseware_Bool = false;
-                    System.out.println('[' + getDate() + ']' + "观看课件任务已关闭");
+                    System.out.println( getDate() + "观看课件任务已关闭");
 
                 } else {
                     ccr.checkCourseware_Bool = true;
-                    System.out.println('[' + getDate() + ']' + "观看课件任务已开启");
+                    System.out.println( getDate()   + "观看课件任务已开启");
 //                    开启方法
                     checkCourseware_Thread.interrupt();
 
@@ -128,12 +128,12 @@ public class start {
             if (i == 3) {
                 if (cbr.classBack_Bool == true) {
                     cbr.classBack_Bool = false;
-                    System.out.println('[' + getDate() + ']' + "自动提交课堂反馈已关闭");
+                    System.out.println( getDate()   + "自动提交课堂反馈已关闭");
 //                    关闭方法
 //                    checkCourseware_Thread.interrupt();
                 } else {
                     cbr.classBack_Bool = true;
-                    System.out.println('[' + getDate() + ']' + "自动提交课堂反馈已开启");
+                    System.out.println( getDate()   + "自动提交课堂反馈已开启");
 //                    开启方法
                     classBack_Thread.interrupt();
 
@@ -166,10 +166,11 @@ public class start {
 
                         boolean b = LittleUtils.checkOpenid(stringBuilder);
                         if (b) {
+                            stringBuilder.delete(0, stringBuilder.length());
                             Thread.sleep(read_openidTime);
                             continue;
                         } else {
-                            System.out.println('[' + getDate() + ']' + stringBuilder.toString());
+                            System.out.println( getDate() +   stringBuilder.toString());
                             stringBuilder.delete(0, stringBuilder.length());
                             Thread.sleep(ty_qdTime);
                         }
@@ -205,10 +206,12 @@ public class start {
                                 , all_openid));
                         boolean b = LittleUtils.checkOpenid(stringBuilder);
                         if (b) {
-                            Thread.sleep(classBackTime);
+                            stringBuilder.delete(0, stringBuilder.length());
+                            Thread.sleep(read_openidTime);
+
                             continue;
                         } else {
-                            System.out.println('[' + getDate() + ']' + stringBuilder.toString());
+                            System.out.println(getDate()  + stringBuilder.toString());
 
                             Thread.sleep(classBackTime);
                             stringBuilder.delete(0, stringBuilder.length());
@@ -244,11 +247,12 @@ public class start {
                                 , all_openid));
                         boolean b = LittleUtils.checkOpenid(stringBuilder);
                         if (b) {
-                            Thread.sleep(checkCoursewareTime);
+                            Thread.sleep(read_openidTime);
+                            stringBuilder.delete(0, stringBuilder.length());
                             continue;
                         } else {
 
-                            System.out.println('[' + getDate() + ']' + stringBuilder.toString());
+                            System.out.println( getDate() +  stringBuilder.toString());
 
                             Thread.sleep(checkCoursewareTime);
                             stringBuilder.delete(0, stringBuilder.length());
@@ -287,18 +291,18 @@ public class start {
 
 
                             } else {
-                                System.out.println("[" + getDate() + "]openid 获取成功  " + all_openid);
+                                System.out.println( getDate() + " openid 获取成功  " + all_openid);
                                 Some_openid = all_openid;
                             }
                         }
 
                     } else {
-                        System.out.println("[" + getDate() + "]openid 未获取成功  将启动自动点击事件！");
+                        System.out.println( getDate() + " openid 未获取成功  将启动自动点击事件！");
                         LittleUtils.updateOpenid();
 
                     }
-                    Thread.sleep(read_openidTime);
                     stringBuilder.delete(0, stringBuilder.length());
+                    Thread.sleep(read_openidTime);
 
                 } catch (Exception e) {
                     e.printStackTrace();

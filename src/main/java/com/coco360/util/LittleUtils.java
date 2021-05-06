@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.coco360.exception.UnknownException;
 import com.coco360.pojo.RespMsg;
 import org.springframework.stereotype.Component;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -266,6 +267,7 @@ public class LittleUtils {
      * @throws InterruptedException
      */
     public static boolean checkOpenid(StringBuilder stringBuilder) throws UnknownException, IOException, InterruptedException {
+
         JSONObject jsonObject = JSONObject.parseObject(stringBuilder.toString());
         String msg = (String) jsonObject.get("msg");
         boolean b = !"success".equalsIgnoreCase(msg);
@@ -273,5 +275,20 @@ public class LittleUtils {
             LittleUtils.updateOpenid();
         }
         return b;
+    }
+
+    public static String ImageToBase64(BufferedImage image){
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", stream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] bytes = stream.toByteArray();
+        BASE64Encoder base64Encoder = new BASE64Encoder();
+        String base64 = base64Encoder.encodeBuffer(bytes).trim();
+        base64 = base64.replaceAll("\n", "").replaceAll("\r", "");
+        return  base64;
     }
 }

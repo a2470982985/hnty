@@ -9,8 +9,6 @@ import com.coco360.requests.UserRequest;
 import com.coco360.util.HttpClientUtil;
 import com.coco360.util.LittleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -161,7 +159,7 @@ public class UserRequestServices {
     }
 
 
-    public  BufferedImage createPicture(PictureInfo pictureInfo) throws Exception {
+    public String createPicture(PictureInfo pictureInfo) throws Exception {
         Date date = new Date();
         String format = new SimpleDateFormat("当前时间:yyyy-M-dd HH:mm:ss").format(date);
         URL resource = LittleUtils.class.getClassLoader().getResource("img/today.png");
@@ -190,7 +188,9 @@ public class UserRequestServices {
         jsonObject.put("content", pictureInfo.toString());
         jsonObject.put("template", "html");
         HttpClientUtil.sendJson("http://pushplus.hxtrip.com/send", jsonObject, "utf-8", null);
-        return image;
+        String base64 = LittleUtils.ImageToBase64(image);
+        return base64;
+
     }
 
     public  RespMsg getOpenid() {

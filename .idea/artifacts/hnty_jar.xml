@@ -5,7 +5,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="hnty" />
+      <element id="module-output" name="hnty-api" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-web/5.2.13.RELEASE/spring-web-5.2.13.RELEASE.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-core/5.2.13.RELEASE/spring-core-5.2.13.RELEASE.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.9/commons-codec-1.9.jar" path-in-jar="/" />

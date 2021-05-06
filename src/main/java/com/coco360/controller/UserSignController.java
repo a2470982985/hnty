@@ -5,12 +5,17 @@ import com.coco360.pojo.RespMsg;
 import com.coco360.service.UserRequestServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 
 @Controller
 public class UserSignController {
@@ -50,10 +55,11 @@ public class UserSignController {
     }
 
 
-    @GetMapping("/getPicture")
-    public void getPicture(HttpServletResponse response, PictureInfo pictureInfo) throws Exception {
-        BufferedImage image = userRequestServices.createPicture(pictureInfo);
-        ServletOutputStream os = response.getOutputStream();
-        ImageIO.write(image,"png",os);
-    }
+    @PostMapping("/getPicture")
+    @ResponseBody
+    public RespMsg getPicture(HttpSession session, PictureInfo pictureInfo) throws Exception {
+        String base64 = userRequestServices.createPicture(pictureInfo);
+        session.setAttribute("base64",base64);
+        return new RespMsg(200,"success",base64);
+        }
 }
