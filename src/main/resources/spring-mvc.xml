@@ -15,7 +15,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
     <context:component-scan base-package="com.coco360"></context:component-scan>
-
+    <context:property-placeholder location="classpath:config.properties" file-encoding="UTF-8"/>
     <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
         <constructor-arg value="UTF-8" index="0"></constructor-arg>
         <property name="supportedMediaTypes">

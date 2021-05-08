@@ -117,7 +117,8 @@
     #msg {
         color: red;
     }
-    h1{
+
+    h1 {
         text-align: center;
     }
 </style>
@@ -226,28 +227,31 @@
 
     $(function () {
 
+        getNotice();
+        getRandomNum();
+
         $("#submit").click(function () {
             $('#msg').html(" ")
             layer.msg('加载中(请耐心等待)..', {
                 anim: 1, //动画效果
-                icon: 16    ,
+                icon: 16,
                 shade: 0.5, //遮罩层透明度
                 shadeClose: false, //点击遮罩层关闭
                 time: 0, //不自动关闭
             });
 
 
-            if ($("[name='destination']").val() !="" &&
-                $("[name='ownName']").val() !="" &&
-                $("[name='reason']").val() !="" &&
-                $("[name='duration']").val() !="" &&
-                $("[name='beginTime']").val() !="" &&
-                $("[name='endTime']").val() !="" &&
-                $("[name='initiateAnApplication']").val() !="" &&
-                $("[name='receiveApplication']").val() !="" &&
-                $("[name='phoneNumber']").val() !="" &&
-                $("[name='position']").val() !="" &&
-                $("[name='counselorSName']").val() !=""){
+            if ($("[name='destination']").val() != "" &&
+                $("[name='ownName']").val() != "" &&
+                $("[name='reason']").val() != "" &&
+                $("[name='duration']").val() != "" &&
+                $("[name='beginTime']").val() != "" &&
+                $("[name='endTime']").val() != "" &&
+                $("[name='initiateAnApplication']").val() != "" &&
+                $("[name='receiveApplication']").val() != "" &&
+                $("[name='phoneNumber']").val() != "" &&
+                $("[name='position']").val() != "" &&
+                $("[name='counselorSName']").val() != "") {
                 $.ajax({
                     url: '/getPicture',
                     method: 'POST',
@@ -271,16 +275,52 @@
                         layer.msg('未知错误，请联系管理员');
                     }
                 })
-            }else {
+            } else {
                 layer.msg("参数不全，请检查是否含有未填写选项");
             }
 
         });
     })
-</script>
-<script>
 
-    window.onload = function getRandomNum() {
+    function getNotice() {
+        $.ajax({
+            url: '/notice',
+            method: 'post',
+            dataType: 'json',
+            async: true,
+            data: 1,
+            // statusCode:{
+            //   404:$('#msg').html(response.data);
+            // },
+            success: function (response) {
+                if (response.code = 200) {
+                    layer.open({
+                        type: 1,
+                        title: false,
+                        closeBtn: false,
+                        time: 3 * 1000,
+                        area: '700px;',
+                        shade: 0.8,
+                        id: 'LAY_layuipro',
+                        resize: false,
+                        btn: ['我已了解'],
+                        btnAlign: 'c',
+                        moveType: 1 ,
+                        content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300; text-align: center">' + response.data + '</div>',
+                        success: function (layero) {
+                        }
+                    });
+                }
+
+            },
+
+        })
+
+
+    }
+
+
+    function getRandomNum() {
         let num = 1;
         for (let i = 0; i < 10; i++) {
             let test = Math.floor(Math.random() * 10);
@@ -289,6 +329,6 @@
         document.getElementById(`phoneNumber`).value = num;
 
     }
-
 </script>
+
 </html>
