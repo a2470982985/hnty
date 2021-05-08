@@ -10,5 +10,6 @@
 <!--    </context:component-scan>-->
 
 
-    <bean name="userRequestServices" class="com.coco360.service.UserRequestServices"/>
+
+
 </beans>

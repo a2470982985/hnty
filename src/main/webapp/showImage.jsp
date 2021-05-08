@@ -129,7 +129,7 @@
 <body>
 
 <div class="login-form">
-    <h2>今日校园图片生成</h2>
+    <h2><%=session.getAttribute("username")%> 你好！ 这是你要的图片~</h2>
     <img id="image" src="data:image/jpg;base64,<%=session.getAttribute("base64")%>">
     <input type="submit" onclick="download()" class="logbtn" value="保存">
 </div>
