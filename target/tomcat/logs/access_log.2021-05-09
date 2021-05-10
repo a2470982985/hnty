@@ -12,6 +12,7 @@
 0:0:0:0:0:0:0:1 - - [09/May/2021:01:30:51 +0800] "GET /picture.html HTTP/1.1" 304 - http-bio-8080-exec-6 1
 0:0:0:0:0:0:0:1 - - [09/May/2021:01:30:51 +0800] "POST /notice HTTP/1.1" 200 587 http-bio-8080-exec-7 4
 0:0:0:0:0:0:0:1 - - [09/May/2021:01:30:51 +0800] "GET /img/favicon.svg HTTP/1.1" 200 2401 http-bio-8080-exec-8 2
+<<<<<<< HEAD
 192.168.137.106 - - [09/May/2021:02:17:19 +0800] "GET /picture.html HTTP/1.1" 200 9931 http-bio-8080-exec-1 56
 192.168.137.106 - - [09/May/2021:02:17:19 +0800] "GET /img/favicon.svg HTTP/1.1" 304 - http-bio-8080-exec-2 3
 192.168.137.106 - - [09/May/2021:02:17:19 +0800] "POST /notice HTTP/1.1" 200 587 http-bio-8080-exec-3 48
@@ -42,3 +43,5 @@
 192.168.137.106 - - [09/May/2021:02:25:03 +0800] "GET /picture.html HTTP/1.1" 304 - http-bio-8080-exec-1 2
 192.168.137.106 - - [09/May/2021:02:25:04 +0800] "POST /notice HTTP/1.1" 200 587 http-bio-8080-exec-1 2
 192.168.137.106 - - [09/May/2021:02:25:09 +0800] "GET / HTTP/1.1" 200 2037 http-bio-8080-exec-1 1
+=======
+>>>>>>> origin/master
